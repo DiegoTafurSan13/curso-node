@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
+const mongoose = require('./database/config');
 const Router = require('./routes/router');
 
 //Initialization
@@ -13,7 +14,7 @@ var app = express();
 //Seatting (set)
 app.set('port',process.env.PORT);
 
-//Midellware (use)
+//Middleware (use)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
@@ -25,8 +26,10 @@ app.use((req,res,next)=>{
 });
 
 //Router
-
 Router(app);
+
+//Connection DB
+mongoose.connect();
 
 //Statics
 app.use(express.static(path.join(__dirname,'public')));
