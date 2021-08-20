@@ -1,30 +1,30 @@
 const router = require('express').Router();
 const { check } = require('express-validator');
 
-const { success } = require('../../helpers/response');
-const controller = require('./controller');
-const { validatorResult} = require('../../middleware/validate_shield');
-const { verifiedRol } = require('../../helpers/db_validate');
+//Import me
+const { controllerPost, controllerGet, controllerPatch, controllerDelete } = require('./controller');
+const { validatorResult } = require('../../middleware/validate_shield');
+const { verifiedRol, verifiedIdRol } = require('../../helpers/db_validate');
 
-router.get('/', (req, res) => {
-    controller.get()
-        .then(data => success(req, res, data));
-});
-router.post('/',[
+router.get('/', controllerGet);
+
+router.post('/', [
+    check('role', 'role not is empty').notEmpty(),
     check('role').custom(verifiedRol),
     validatorResult
-], (req, res) => {
-    const data = req.body;
-    controller.add(data)
-        .then(data => success(req, res, data));
-});
-router.patch('/:id', (req, res) => {
+], controllerPost);
 
-});
-router.delete('/:id', (req, res) => {
+router.patch('/:id', [
+    check('id', 'not is mongoId').isMongoId(),
+    check('id').custom(verifiedIdRol),
+    check('role', 'role not is empty').notEmpty(),
+    validatorResult
+], controllerPatch);
 
-});
-
-
+router.delete('/:id', [
+    check('id', 'not is mongoId').isMongoId(),
+    check('id').custom(verifiedIdRol),
+    validatorResult
+], controllerDelete);
 
 module.exports = router;

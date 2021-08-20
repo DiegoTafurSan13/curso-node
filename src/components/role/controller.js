@@ -1,31 +1,37 @@
+const store = require('./store');
+const { message } = require('../../helpers/response');
 
-const Model = require('./model');
 
+const controllerGet = async (req, res, next) => {
+    const query = req.query.role || null;
+    store.get(query)
+        .then(data => message(req, res, data));
 
-async function getRol() {
-    try {
-        const findRol = await Model.find();
-        return findRol;
-    } catch (err) {
-        throw new Error(err);
-    }
 };
 
-async function addRol(data) {
-    try {
-        const newRol = {
-            role:data.role.toUpperCase()
-        }
-        const rol = new Model(newRol);
-        return await rol.save();
+const controllerPost = async (req, res, next) => {
+    const data = req.body;
+    store.add(data)
+        .then(data => message(req, res, data));
 
-    } catch (err) {
-
-        throw new Error(err);
-    }
 };
+
+const controllerPatch = async (req, res, next) => {
+    const id = req.params.id;
+    const rol = req.body;
+    store.patch(id, rol)
+        .then(data => message(req, res, data));
+}
+
+const controllerDelete = async (req, res, next) => {
+    const id = req.params.id;
+    store.delete(id)
+        .then(data => message(req, res, data));
+}
 
 module.exports = {
-    get: getRol,
-    add: addRol
-};
+    controllerGet,
+    controllerPost,
+    controllerPatch,
+    controllerDelete
+}

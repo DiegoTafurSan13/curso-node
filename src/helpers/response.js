@@ -1,6 +1,5 @@
-
-
-function success(req, res, message) {
+//Message response
+const message =(req, res, message) =>{
     res.status(message.status || 200 ).send(
         {
             message
@@ -10,6 +9,6 @@ function success(req, res, message) {
 
 
 module.exports = {
-    success
+    message
 };
 
