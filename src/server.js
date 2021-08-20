@@ -27,6 +27,9 @@ app.use((req,res,next)=>{
 
 //Router
 Router(app);
+app.use('/',(req,res)=>{
+    res.sendFile(__dirname+'/public/index.html');
+});
 
 //Connection DB
 mongoose.connect();
