@@ -55,6 +55,7 @@ async function patchUser(id, user) {
 
 async function deleteUser(id) {
     try {
+
         const deleteUser = await Model.findByIdAndUpdate(id, { state: false });
         return deleteUser;
 

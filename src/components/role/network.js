@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 
 //Import me
 const { controllerPost, controllerGet, controllerPatch, controllerDelete } = require('./controller');
-const { validatorResult } = require('../../middleware/validate_shield');
+const { validatorResult } = require('../../middleware/validate-shield');
 const { verifiedRol, verifiedIdRol } = require('../../helpers/db_validate');
 
 router.get('/', controllerGet);
