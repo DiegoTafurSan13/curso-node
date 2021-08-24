@@ -60,7 +60,7 @@ async function deleteUser(id) {
         return deleteUser;
 
     } catch (err) {
-        return errr;
+        return err;
     }
 }
 

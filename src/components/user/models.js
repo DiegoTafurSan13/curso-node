@@ -19,6 +19,7 @@ const userSchema = new Schema({
     },
     role: {
         type: Schema.Types.String,
+        default:'USER_ROLE',
         required: true,
     },
     google: {
